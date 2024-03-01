@@ -19,7 +19,18 @@
 * Prometheus
 * Grafana
 
-### Step to run
+## Step to run with .NET (dev mode)
+```
+$dotnet restore
+$dotnet run
+```
+Run in browser
+* App
+  * http://localhost:5163/Users?userId=1
+* Swagger
+  * http://localhost:5163/swagger/index.html
+
+### Step to run with Docker
 ```
 // Build image
 docker compose build app
@@ -28,6 +39,7 @@ docker compose build app
 docker compose up -d otel-collector
 docker compose up -d prometheus
 docker compose up -d grafana
+docker compose up -d db
 docker compose up -d app
 
 // Status of container
@@ -36,9 +48,11 @@ docker compose logs --follow
 ```
 
 ### Try to use in web browser
+* App
+  * http://localhost:5001/Users?userId=1
+* Swagger
+  * http://localhost:5001/Users?userId=1
 * Prometheus
   * http://localhost:9090
 * Grafana
   * http://localhost:3000
-* App
-  * http://localhost:5001/Users?userId=1

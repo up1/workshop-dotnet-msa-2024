@@ -48,3 +48,17 @@ services:
       OtlpEndpointUri: http://otel-collector:4317
     networks:
       - polly
+  
+  db:
+    image: postgres:16.2
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: demo
+    volumes:
+      - ./postgres/tables.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./postgres/data.sql:/docker-entrypoint-initdb.d/2.sql
+    ports:
+      - 5432:5432
+    networks:
+      - polly
