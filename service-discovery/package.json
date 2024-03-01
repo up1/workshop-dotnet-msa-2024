@@ -1,0 +1,22 @@
+{
+  "name": "service-discovery",
+  "version": "1.0.0",
+  "description": "``` $docker container run --rm --name=consul -p 8500:8500 consul",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm-run-all --parallel service1 service2",
+    "service1": "node service1",
+    "service2": "node service2",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "consul": "^1.2.0",
+    "express": "^4.18.3",
+    "npm-run-all": "^4.1.5",
+    "request": "^2.88.2",
+    "request-promise-native": "^0.0.0",
+    "uuid": "^9.0.1"
+  }
+}
