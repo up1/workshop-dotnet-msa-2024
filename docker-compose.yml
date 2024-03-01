@@ -23,7 +23,7 @@ services:
     networks:
       - polly
   
-  otel-collector:
+  otel_collector:
     image: otel/opentelemetry-collector:0.73.0
     command: ["--config=/etc/otel-collector-config.yaml"]
     volumes:
