@@ -36,7 +36,7 @@ Run in browser
 docker compose build app
 
 // Start container
-docker compose up -d otel_collector
+docker compose up -d otel-collector
 docker compose up -d prometheus
 docker compose up -d grafana
 docker compose up -d db
