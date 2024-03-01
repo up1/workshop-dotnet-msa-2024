@@ -1,3 +1,5 @@
+using Data;
+using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using Polly;
@@ -11,6 +13,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Database
+builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Http client
 builder.Services.AddHttpClient("typicode-users", c =>
     {
         c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("TypiCodeBaseUri") ??
@@ -19,6 +26,7 @@ builder.Services.AddHttpClient("typicode-users", c =>
 
     }).AddPolicyHandler(PollyResiliencePipelines.CreateCircuitBreakerStrategy().AsAsyncPolicy());
 
+// OpenTelemetry
 builder.Services.AddOpenTelemetry().WithMetrics(opts => opts
     .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("Pollyv8.WebApi"))
     .AddMeter("Polly")
