@@ -9,6 +9,8 @@ const {
   OTLPMetricExporter,
 } = require('@opentelemetry/exporter-metrics-otlp-proto');
 const { PeriodicExportingMetricReader } = require('@opentelemetry/sdk-metrics');
+const { ExpressInstrumentation } = require('@opentelemetry/instrumentation-express');
+
 
 const sdk = new opentelemetry.NodeSDK({
   traceExporter: new OTLPTraceExporter({
@@ -24,7 +26,10 @@ const sdk = new opentelemetry.NodeSDK({
       concurrencyLimit: 1, // an optional limit on pending requests
     }),
   }),
-  instrumentations: [getNodeAutoInstrumentations()],
+  instrumentations: [
+    getNodeAutoInstrumentations(),
+    new ExpressInstrumentation(),
+],
 });
 
 sdk.start();

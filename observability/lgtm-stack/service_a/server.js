@@ -2,6 +2,7 @@
 const getData = require('./db')
 const express = require('express')
 const { ExpressPrometheusMiddleware } = require('@matteodisabatino/express-prometheus-middleware')
+const { trace } = require('@opentelemetry/api');
 const app = express()
 const epm = new ExpressPrometheusMiddleware()
 const port = process.env.PORT || 3002
@@ -22,30 +23,48 @@ app.get('/call-db', async (req, res, next) => {
 })
 
 app.get('/steps', (req, res, next) => {
-  const span = opentelemetry.trace.getActiveSpan();
-  span.addEvent('Steps API called');
-  step1()
-  setTimeout(() => {
-    res.json({ message: 'This is service from NodeJS' })
-    next()
-  }, Math.round(Math.random() * 200))
+  const tracer = trace.getTracer('steps');
+  return tracer.startActiveSpan('step-0', (span) => {
+    try {
+      step1()
+      return res.json({ message: 'Called more steps' })
+    } catch (error) {
+      console.error(error);
+    } finally {
+      span.end();
+    }
+  });
 })
 
 const step1 = () => {
-  const span = opentelemetry.trace.getActiveSpan();
-  span.addEvent('Step 1 called');
-  setTimeout(() => {
-    console.log('Step 2')
-  }, Math.round(Math.random() * 200))
-  step2()
+  const tracer = trace.getTracer('steps');
+  return tracer.startActiveSpan('step-1', (span) => {
+    try {
+      setTimeout(() => {
+        console.log('Step 1')
+      }, Math.round(Math.random() * 200))
+      step2()
+    } catch (error) {
+      console.error(error);
+    } finally {
+      span.end();
+    }
+  });
 }
 
 const step2 = () => {
-  const span = opentelemetry.trace.getActiveSpan();
-  span.addEvent('Step 2 called');
-  setTimeout(() => {
-    console.log('Step 2')
-  }, Math.round(Math.random() * 200))
+  const tracer = trace.getTracer('steps');
+  return tracer.startActiveSpan('step-2', (span) => {
+    try {
+      setTimeout(() => {
+        console.log('Step 2')
+      }, Math.round(Math.random() * 200))
+    } catch (error) {
+      console.error(error);
+    } finally {
+      span.end();
+    }
+  });
 }
 
 app.listen(port, () => {
