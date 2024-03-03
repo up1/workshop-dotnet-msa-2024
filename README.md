@@ -51,7 +51,7 @@ docker compose logs --follow
 * App
   * http://localhost:5001/Users?userId=1
 * Swagger
-  * http://localhost:5001/Users?userId=1
+  * http://localhost:5001/swagger/index.html
 * Prometheus
   * http://localhost:9090
 * Grafana
