@@ -4,6 +4,9 @@ services:
     build: ./service_a
     ports:
       - 3002:3002
+    environment:
+      OTEL_SERVICE_NAME: service-a
+      OTEL_COLLECTOR_SERVER: http://jaeger:4318/v1/traces
   db:
     image: postgres:16.2
     environment:
