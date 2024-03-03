@@ -1,0 +1,4 @@
+.DS_Store
+.vs/
+dotnet/bin/
+dotnet/obj/
