@@ -1,6 +1,7 @@
 # Microservices workshop
 * Technology stack
     * [x] Net 8
+    * [x] NodeJS
     * [x] Docker
     * [x] PostgreSQL
     * [ ] APISIX
@@ -11,7 +12,10 @@
   * [ ] Application metric
   * [ ] Distributed tracing
   * [ ] Centralized log
-
+* Asynchronous communication
+  * NodeJS
+  * RabbitMQ
+    * Queue 
 
 ## Workshop :: Circuit Breaker
 * Polly
