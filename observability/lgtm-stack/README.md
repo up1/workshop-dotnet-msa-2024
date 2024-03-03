@@ -9,6 +9,7 @@
 
 ## Workshop with Tracing and Metrics
 * NodeJS 20
+* Database PostgreSQL
 * OpenTelemetry
 * Tracing
   * Jaeger
@@ -16,9 +17,11 @@
   * Prometheus
   * Grafana
 
-### 1. Start Jaeger
+### 1. Start Jaeger and Database
 ```
 $docker compose up -d jaeger
+$docker compose up -d db
+$docker compose ps
 ```
 Access to jaeger = http://localhost:16686/
 
@@ -33,4 +36,10 @@ $npm start
 Access to service a
 * http://localhost:3002
 * http://localhost:3002/metrics
+
+More endpoints
+* Connect to db
+  * http://localhost:3002/call-db
+* More steps (custom spans)
+  * http://localhost:3002/steps
 
