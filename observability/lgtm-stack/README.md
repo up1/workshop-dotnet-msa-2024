@@ -25,7 +25,7 @@ $docker compose ps
 ```
 Access to jaeger = http://localhost:16686/
 
-### 2. Start `service a`
+### 2. Start `service a` with simple command
 ```
 $npm install
 
@@ -43,3 +43,18 @@ More endpoints
 * More steps (custom spans)
   * http://localhost:3002/steps
 
+### 3. Start `service a` with Docker compose
+```
+$docker compose build service-a
+$docker compose up -d service-a
+$docker compose ps
+```
+
+### 4. Start prometheus
+```
+$docker compose up -d prometheus
+$docker compose ps
+```
+
+Access to prometheus = http://localhost:9090
+* Go to menu Status => Targets

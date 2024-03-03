@@ -12,14 +12,12 @@ app.use(epm.handler)
 app.get('/', (req, res, next) => {
   setTimeout(() => {
     res.json({ message: 'This is service from NodeJS' })
-    next()
   }, Math.round(Math.random() * 200))
 })
 
 app.get('/call-db', async (req, res, next) => {
   await getData();
   res.json({ message: 'Called database' })
-  next()
 })
 
 app.get('/steps', (req, res, next) => {
