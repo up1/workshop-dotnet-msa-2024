@@ -1,8 +1,8 @@
 # Microservices workshop
 * Technology stack
     * [x] Net 8
-    * [ ] Docker
-    * [ ] PostgreSQL
+    * [x] Docker
+    * [x] PostgreSQL
     * [ ] APISIX
 * Resilience patterns
   * [x] Circuit breaker
