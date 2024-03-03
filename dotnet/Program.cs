@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using Polly;
+using Prometheus;
 using Strategies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Prometheus
+builder.Services.UseHttpClientMetrics();
 
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -39,12 +43,15 @@ builder.Services.AddOpenTelemetry().WithMetrics(opts => opts
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 
 // app.UseHttpsRedirection();
 app.MapControllers();
+
+// Enable /metrics endpoint
+app.UseMetricServer();
 app.Run();

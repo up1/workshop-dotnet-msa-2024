@@ -1,4 +1,6 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Prometheus;
 
 namespace Controllers
 {
@@ -6,7 +8,9 @@ namespace Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        // Custom metrics
+        private static readonly Counter counter = Metrics.CreateCounter("myapp_getuser_total", "Number of request.", labelNames: new[] { "status" });
+                private readonly IHttpClientFactory _httpClientFactory;
         public UsersController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
@@ -20,9 +24,16 @@ namespace Controllers
             var response = await client.GetAsync(
                 $"users/{userId}", ct);
 
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode){
+                counter.WithLabels("success").Inc();
                 return Ok(await response.Content.ReadAsStringAsync());
+            }
+            if (response.StatusCode == HttpStatusCode.NotFound){
+                counter.WithLabels("notfound").Inc();
+                return NotFound();
+            }
 
+            counter.WithLabels("error").Inc();
             return StatusCode(500);
         }
     }
