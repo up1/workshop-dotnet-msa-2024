@@ -1,4 +1,5 @@
 # Workshop :: Async with NodeJS and RabbitMQ
+* Queue
 
 ## 1. Start rabbitmq server
 ```
