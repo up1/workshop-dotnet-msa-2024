@@ -25,3 +25,23 @@ services:
       - 14268:14268
       - 14269:14269
       - 9411:9411
+  
+  prometheus:
+    build: 
+      context: ./prometheus
+    ports:
+      - 9090:9090
+  
+  otel-collector:
+    image: otel/opentelemetry-collector:0.73.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "8888:8888" 
+      - "8889:8889" 
+      - "13133:13133"
+      - "14317:4317"
+      - "14318:4318"
+
+  

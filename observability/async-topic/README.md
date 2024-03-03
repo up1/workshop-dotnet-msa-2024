@@ -24,6 +24,20 @@ $docker compose ps
 ```
 Access to jaeger = http://localhost:16686/
 
+## Start Prometheus
+```
+$docker compose build prometheus
+$docker compose up -d prometheus
+$docker compose ps
+```
+Access to jaeger = http://localhost:9090/
+
+## Start Otel-collector
+```
+$docker compose up -d otel-collector
+$docker compose ps
+```
+
 ## Start publisher
 ```
 $SERVICE=demo node --require './tracing.js'  publisher.js

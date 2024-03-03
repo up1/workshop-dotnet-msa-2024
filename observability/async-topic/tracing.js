@@ -8,7 +8,7 @@ const {
 const {
     OTLPMetricExporter,
 } = require('@opentelemetry/exporter-metrics-otlp-proto');
-const { PeriodicExportingMetricReader } = require('@opentelemetry/sdk-metrics');
+const { PeriodicExportingMetricReader, ConsoleMetricExporter } = require('@opentelemetry/sdk-metrics');
 const { AmqplibInstrumentation } = require('@opentelemetry/instrumentation-amqplib');
 const { HttpInstrumentation } = require("@opentelemetry/instrumentation-http");
 const { ExpressInstrumentation } = require("opentelemetry-instrumentation-express");
@@ -21,12 +21,16 @@ const sdk = new opentelemetry.NodeSDK({
         headers: {},
     }),
     metricReader: new PeriodicExportingMetricReader({
-        exporter: new OTLPMetricExporter({
-            //url: '<your-otlp-endpoint>/v1/metrics', // url is optional and can be omitted - default is http://localhost:4318/v1/metrics
-            headers: {}, // an optional object containing custom headers to be sent with each request
-            concurrencyLimit: 1, // an optional limit on pending requests
-        }),
+        exporter: new ConsoleMetricExporter(),
+        exportIntervalMillis: 1000,
     }),
+    // metricReader: new PeriodicExportingMetricReader({
+    //     exporter: new OTLPMetricExporter({
+    //         //url: '<your-otlp-endpoint>/v1/metrics', // url is optional and can be omitted - default is http://localhost:4318/v1/metrics
+    //         headers: {}, // an optional object containing custom headers to be sent with each request
+    //         concurrencyLimit: 1, // an optional limit on pending requests
+    //     }),
+    // }),
     instrumentations: [
         getNodeAutoInstrumentations(),
         new AmqplibInstrumentation(),
