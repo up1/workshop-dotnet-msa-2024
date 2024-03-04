@@ -6,18 +6,18 @@
 ## Install Kong
 * [Reference](https://github.com/Kong/docker-kong/blob/master/compose/README.md)
 
-Build image with custom plugin
+### Build image with custom plugin
 ```
 $docker compose build kong
 ```
 
-With [db-less](https://docs.konghq.com/gateway/latest/production/deployment-topologies/db-less-and-declarative-config/#main)
+### With [db-less](https://docs.konghq.com/gateway/latest/production/deployment-topologies/db-less-and-declarative-config/#main)
 ```
 $docker compose up -d
 $docker compose ps
 ```
 
-With PostgreSQL
+### With PostgreSQL
 ```
 $KONG_DATABASE=postgres docker compose --profile database up -d kong
 $docker compose ps
