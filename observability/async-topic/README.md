@@ -3,8 +3,11 @@
 * RabbitMQ
   * Publisher/Subscriber
 * Observability
-  * Distributed tracing
-  * Application metric
+  * Otel collector
+    * Distributed tracing
+      * Jaeger
+    * Application metric
+      * Prometheus
 
 ## Start RabbitMQ
 ```
