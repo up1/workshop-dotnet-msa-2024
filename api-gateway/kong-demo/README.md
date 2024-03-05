@@ -19,7 +19,8 @@ $docker compose ps
 
 ### With PostgreSQL
 ```
-$KONG_DATABASE=postgres docker compose --profile database up -d kong
+$docker compose up -d db
+$KONG_DATABASE=postgres docker compose  up -d kong 
 $docker compose ps
 $docker compose logs --follow
 ```
