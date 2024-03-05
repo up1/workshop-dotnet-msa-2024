@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "40ebdd06-2696-47a6-85df-2adccd1e1ad7",
+		"name": "kong-auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1453931",
+		"_collection_link": "https://red-firefly-245852.postman.co/workspace/xxxx~36ecdd7d-7b94-40ca-9975-7dc77e49b630/collection/1453931-40ebdd06-2696-47a6-85df-2adccd1e1ad7?action=share&source=collection_link&creator=1453931"
+	},
+	"item": [
+		{
+			"name": "1. Create service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"demo-service\",\n    \"url\": \"http://konghq.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/services",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Create route",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"route01\",\n    \"hosts\": [\"example.com\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/services/demo-service/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"demo-service",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Add plugin to service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"custom-auth\",\n    \"config\": {\n        \"url\": \"http://auth-api:3000/login\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8001/services/demo-service/plugins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"demo-service",
+						"plugins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Testing",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "12345",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Host",
+						"value": "example.com",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
