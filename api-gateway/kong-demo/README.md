@@ -25,6 +25,11 @@ $docker compose ps
 $docker compose logs --follow
 ```
 
+or 
+```
+$KONG_DATABASE=postgres docker compose --profile database up -d
+```
+
 Access to Kong Manage (UI)
 * http://localhost:8002/
 
