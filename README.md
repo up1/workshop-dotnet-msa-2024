@@ -4,7 +4,7 @@
     * [x] NodeJS
     * [x] Docker
     * [x] PostgreSQL
-    * [ ] APISIX
+    * [x] Kong
 * Resilience patterns
   * [x] Circuit breaker
     * [x] Alert system + Application metric
