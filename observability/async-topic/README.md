@@ -43,11 +43,13 @@ $docker compose ps
 
 ## Start publisher
 ```
+$npm install
 $SERVICE=demo node --require './tracing.js'  publisher.js
 ```
 
 ## Start consumer
 ```
+$npm install
 $SERVICE=consumer1 node --require './tracing.js' consumer.js
 $SERVICE=consumer2 node --require './tracing.js' consumer.js
 ```
