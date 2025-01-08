@@ -5,8 +5,6 @@ receivers:
       http:
 
 exporters:
-  logging:
-    verbosity: detailed
   prometheus:
     endpoint: "0.0.0.0:8889"
   otlphttp/jaeger:
@@ -26,8 +24,8 @@ service:
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, prometheus]
+      exporters: [prometheus]
     traces:
       receivers: [ otlp ]
       processors:
-      exporters: [ logging, otlphttp/jaeger ]
+      exporters: [otlphttp/jaeger ]
